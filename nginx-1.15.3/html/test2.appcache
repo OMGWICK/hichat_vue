@@ -1,0 +1,12 @@
+CACHE MANIFEST	// manifest文件的开始 
+#version 9	//定义版本，更新的时候只需修改版本号
+CACHE: 
+images/ty1.jpg
+images/ty3.jpg
+images/ty2.jpg
+
+mycss.css
+NETWORK: 
+*
+FALLBACK 
+online.html offline.html 
