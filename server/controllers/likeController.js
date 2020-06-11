@@ -5,7 +5,7 @@ exports.get = function (req, res) {
     let user_id = req.session.userinfo.userid;
     Like.find({
         user_id
-    }).populate('dynamic_id').exec((err, docs) => {
+    }).populate({path:'dynamic_id',populate:{path:'writer'}}).exec((err, docs) => {
         if (err) {
             console.log(err)
             return

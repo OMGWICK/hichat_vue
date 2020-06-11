@@ -17,7 +17,7 @@
         
       </div>
       <div class="HL_publish_r">
-        <publish-right v-if="hotList.length!=0" :card-data="hotList"></publish-right>
+        <publish-right></publish-right>
       </div>
     </div>
   </div>
@@ -32,7 +32,6 @@ export default {
   data: function() {
     return {
       cardList: [],
-      hotList:[],
       count: 1,
       // loading: true,
       totalPages: "",//返回内容的总页数
@@ -60,26 +59,19 @@ export default {
       let resData=res.data.docs;
       this.cardList =this.cardList.concat(resData);
       this.totalPages = Math.ceil(res.data.total/10);
-      // console.log(this.cardList,this.totalPages)
+    },
+    searchData:async function(searchWord){
+      let res =await this.$http.get("dynamics",{params:{searchWord}}).catch(err=>console.log(err));
+      this.cardList=res.data;
+      console.log(res);
     },
     getData: async function() {
-      let res = await this.$http.get("/dynamics",).catch(err => console.log(err));
-      this.hotList = res.data;
-      console.log(res);
-      if(this.hotList.length==0){
-        this.hotList=[0];
-      }
       if (Object.keys(this.$route.params).length == 0) {
         this.getPageData()
         return;
       }
       let searchWord = this.$route.params.word;
-      this.cardList = res.data.filter(item => {
-        if (item.content.includes(searchWord)) {
-          return true;
-        }
-      }).reverse();
-      // console.log(this.cardList);
+      this.searchData(searchWord)
     },
   },
   components: {
@@ -109,6 +101,7 @@ export default {
     background-color: #ffffff;
     padding: 5px 0;
     cursor: pointer;
+    margin-bottom: 16px;
   }
   .HL_publish_zj {
     width: 100%;

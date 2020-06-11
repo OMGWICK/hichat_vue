@@ -22,7 +22,7 @@ axios.interceptors.response.use(res => { // 401的情况下表示验证未通过
   return res
 }, error => {
   if (error.response.status === 401) {
-    console.log('123')
+    // console.log('123')
     router.push({ path: '/login' })
   }
   return Promise.reject(new Error(error))

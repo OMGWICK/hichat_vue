@@ -26,15 +26,21 @@ exports.post = function (req, res) {
 };
 
 exports.get =function(req,res){
-    Dynamic.find({}).populate('writer').exec((err,docs)=>{
+    let query = req.query.searchWord;
+    Dynamic.find({}).sort({_id: -1}).populate('writer').exec((err,docs)=>{
         if(err){
             console.log(err);
             return;
         }
-        // console.log(docs)
-        res.json(docs);
+        let searchData = docs.filter(item=>{
+            if(item.content.includes(query)){
+                return true;
+            }
+        })
+        res.json(searchData);
     })
 };
+
 exports.page_get =async function(req,res){
     let page = req.query.pageNumber;
     let pageSize = req.query.pageSize;
@@ -50,14 +56,25 @@ exports.page_get =async function(req,res){
 
 exports.mine_get =function(req,res){
     let id = req.session.userinfo.userid;
-    Dynamic.find({writer:id},(err,docs)=>{
+    Dynamic.find({writer:id}).populate('writer').exec((err,docs)=>{
         if(err){
             console.log(err);
-            res.send();
+            return;
+        }
+        // console.log(docs)
+        res.json(docs);
+    })
+}
+
+exports.hotlist_get = function(req,res){
+    Dynamic.find({},'content likeNumber').sort({'likeNumber':-1}).limit(10).exec((err,docs)=>{
+        if(err){
+            console.log(err);
+            return;
         }
         res.json(docs);
-    });
-};
+    })
+}
 
 exports.put =function(req,res){
     // console.log(req.body);

@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <div class="card_face">
         <el-avatar :size="40" :src="circleUrl" @error="errorHandler">
-          <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+          <img src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
         </el-avatar>
       </div>
       <div class="card_content">
@@ -48,7 +48,7 @@
           </div>
         </el-dialog>
 
-        <a href="javascript:void">{{userName}}</a>
+        <span class="card_username">{{userName}}</span>
         <div class="card_time">{{time}}</div>
         <div class="card_main_text">
           <span class="card_main_txt" v-html="cardContent"></span>
@@ -76,12 +76,15 @@
         <i class="el-icon-collection-tag"></i>
         {{(collectState==0)?'收藏':'已收藏'}}
       </span>
-      <span style="cursor: pointer;">
-        <i class="el-icon-chat-dot-square"></i>12
+      <span style="cursor: pointer;" @click="showComment=!showComment">
+        <i class="el-icon-chat-dot-square"></i>评论
       </span>
       <span style="cursor: pointer;" @click="toggleLike" :style="{color:iflike}">
         <i class="zi zi_digg"></i>{{like==0?'赞':like}}
       </span>
+    </div>
+    <div class="card_comment" v-if="showComment">
+      <comment></comment>
     </div>
   </div>
 </template>
@@ -90,21 +93,24 @@
 import publishDy from "./PublishDy";
 import EmojiPanel from "./Emoji/EmojiPanel";
 import {mapState} from 'vuex';
+import comment from "./Comment";
+
 let mapStateObj = mapState(['userid'])
 
 export default {
   inject: ["routerReload"],
   data() {
     return {
+      showComment:false,
       dialogVisible: false,
       newEdit: {},
       time: this.cardData.addtime,
-      userName: this.cardData.writer.username,
+      userName: this.cardData.writer.name,
       cardContent: this.cardData.content,
       lookmore: "",
       saveContent: "",
       circleUrl:
-        "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        "",
       isShowEmojiPanel: false,
       imgUrl: this.cardData.imgUrl,
       like:this.cardData.likeNumber,
@@ -274,16 +280,21 @@ export default {
             this.like--;
           }
         }
-    }
+    },
+    getInfo() {
+      this.circleUrl=this.cardData.writer.userUrl;
+    },
   },
 
   components: {
     publishDy,
-    EmojiPanel
+    EmojiPanel,
+    comment,
   },
   beforeMount:function(){
     this.getCollectionStatus();
     this.getLikeStatus();
+    this.getInfo();
   },
   mounted: function() {
     this.showMore();
@@ -336,7 +347,7 @@ export default {
       color: #333333;
     }
 
-    a {
+    .card_username {
       color: #333333;
       font-weight: bold;
     }

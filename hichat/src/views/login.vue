@@ -145,7 +145,6 @@ export default {
                 });
             },
     regist() {
-        console.log('123');
       this.$router.push('/register')
     },
     //重复动画

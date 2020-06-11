@@ -3,7 +3,7 @@ const Dynamic = require('../models/dynamic');
 
 exports.get= function(req,res){
     let user_id =req.session.userinfo.userid;
-    Collection.find({user_id}).populate('dynamic_id').exec((err,docs)=>{
+    Collection.find({user_id}).populate({path:'dynamic_id',populate:{path:'writer'}}).exec((err,docs)=>{
         if(err){
             console.log(err)
             return

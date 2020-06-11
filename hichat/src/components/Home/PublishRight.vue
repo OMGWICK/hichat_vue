@@ -3,7 +3,7 @@
     <div class="publish_person">
       <div class="bgImg" :style="{backgroundImage: 'url('+personBgImg+')'}"></div>
       <div class="person_bt">
-        <div class="person_bt_name">username</div>
+        <div class="person_bt_name">{{name}}</div>
         <div class="person_bt_m">
           <ul>
             <li>
@@ -22,8 +22,8 @@
         </div>
       </div>
       <div class="person_face">
-        <el-avatar :size="60" :src="circleUrl" @error="errorHandler">
-          <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+        <el-avatar :size="60" :src="circleUrl" @error="errorHandler" @click.native="toUser">
+          <img src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
         </el-avatar>
       </div>
     </div>
@@ -61,10 +61,11 @@ export default {
   data() {
     return {
       circleUrl:
-        "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        "",
       hotList:[],
       collectNumber:'',
       myDyNumber:'',
+      name:'',
     };
   },
   props:["cardData"],
@@ -75,15 +76,18 @@ export default {
     errorHandler() {
       return true;
     },
-    getHotData(){
+    toUser(){
+      this.$router.push("/user");
+    },
+    getHotData:async function(){
       let _this=this;
-      _this.hotList=_this.cardData.map(item=>{
-        let hot={content:item.content,likeNumber:item.likeNumber};
-        return hot
-      }).sort((a,b)=>b.likeNumber-a.likeNumber).slice(0,10);
+      let res =await _this.$http.get('/dynamics/hotlist').catch(err=>console.log(err))
+      _this.hotList = res.data;
     },
     delHtmlTag(str){
+    if(str){
     return str.replace(/<[^>]+>/g,"");
+    }
   },
   getCollection: async function() {
       let res = await this.$http.get("/collection").catch(err => console.log(err));
@@ -92,15 +96,25 @@ export default {
     getMyDyNumber: async function() {
       let res = await this.$http.get("/dynamics/mine").catch(err => console.log(err));
       this.myDyNumber = res.data.length;
+    },
+    getinfo(){
+      this.$http
+        .get("/user/info")
+        .then(res => {
+          this.circleUrl=res.data.userUrl;
+          this.name = res.data.name;
+        })
+        .catch(err => console.log(err));
     }
   },
   components:{
     notice,
   },
-  mounted(){
+  beforeMount(){
     this.getHotData()
     this.getCollection()
     this.getMyDyNumber()
+    this.getinfo();
   }
 };
 </script>
@@ -154,6 +168,7 @@ export default {
     }
   }
   .person_face {
+    cursor: pointer;
     display: inline-block;
     position: absolute;
     top: 20px;
@@ -184,6 +199,7 @@ export default {
       justify-content: space-between;
       font-size: 12px;
       .hot_left{
+        font-size: 14px;
         width: 80%;
         overflow: hidden;
     text-overflow: ellipsis;

@@ -252,6 +252,7 @@ export default {
       }
 
       .button_s {
+        margin:0;
         display: inline-block;
         vertical-align: middle;
         .el-button {

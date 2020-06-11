@@ -86,6 +86,7 @@ exports.register_post = function (req, res) {
             });
             let user = new User({
                 username,
+                name:username,
             })
             user.save((err) => {
                 if(err){
@@ -127,4 +128,54 @@ exports.logout_post = function(req,res){
       res.clearCookie('hichatkey');
       res.send(apiTools.getSuRtnData(''));
     });
+}
+
+exports.userinfo_post = function(req,res){
+    User.findById({_id:req.session.userinfo.userid},(err,doc)=>{
+        doc.name=req.body.formName;
+        doc.realname=req.body.formRealName;
+        doc.email=req.body.formEmail;
+        doc.call=req.body.formCall;
+        doc.day=req.body.formDay;
+        doc.url=req.body.formUrl;
+        doc.sex=req.body.formSex;
+        doc.sexx=req.body.formSexx;
+        doc.introduce=req.body.formIntroduce;
+        doc.address=req.body.formAddress;
+        doc.postcode=req.body.formPostCode;
+        doc.country=req.body.formCountry;
+        doc.save(err=>{
+            if(err){
+                console.log(err)
+                res.end()
+            }
+            res.json({msg:'修改成功'})
+        })
+    });
+
+}
+
+exports.userUrl_post = function(req,res){
+    console.log(req.body);
+    User.findById({_id:req.session.userinfo.userid},(err,doc)=>{
+        doc.userUrl=req.body.userUrl;
+        doc.save(err=>{
+            if(err){
+                console.log(err)
+                res.end()
+            }
+            res.json({msg:'修改成功'})
+        })
+    });
+
+}
+
+exports.userinfo_get = function(req,res){
+    User.findById({_id:req.session.userinfo.userid},(err,doc)=>{
+        if(err){
+            console.log(err);
+            res.end()
+        }
+        res.json(doc)
+    })
 }
