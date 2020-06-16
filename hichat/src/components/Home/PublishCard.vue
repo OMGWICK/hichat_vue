@@ -84,7 +84,7 @@
       </span>
     </div>
     <div class="card_comment" v-if="showComment">
-      <comment></comment>
+      <comment :dynamicId="cardData._id"></comment>
     </div>
   </div>
 </template>
@@ -145,14 +145,14 @@ export default {
     finishEdit() {
       let edit_text = document.querySelector(".edit_textarea").innerHTML;
       edit_text = edit_text.replace(/:.*?:/g, this.emoji);
-      console.log(edit_text);
+      // console.log(edit_text);
       if (!edit_text) {
         return;
       }
       let addTime = this.$moment().format("YYYY年MM月DD日 HH:mm:ss");
       this.newEdit.addTime = addTime;
       this.newEdit.content = edit_text;
-      console.log(this.newEdit);
+      // console.log(this.newEdit);
       this.$http
         .put("/dynamics", this.newEdit)
         .then(res => {
@@ -396,6 +396,9 @@ export default {
   }
   .clear {
     clear: both;
+  }
+  .card_comment{
+    border-top: 1px solid #d9d9d9;
   }
 }
 </style>
