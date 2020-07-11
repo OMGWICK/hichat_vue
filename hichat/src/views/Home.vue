@@ -28,7 +28,7 @@
               </li>
               <li>
                 <router-link to="/user">
-                  <i class="zi zi_useralt"></i>个人中心
+                  <i class="zi zi_useralt"></i>个人资料
                 </router-link>
               </li>
               <!-- 实验登陆 -->
@@ -41,7 +41,7 @@
           </div>
 
           <div class="nav-right">
-            <i class="el-icon-message"></i>
+            <a href="mailto:1396520472@qq.com"><i class="el-icon-message"></i></a>
             <el-dropdown trigger="click">
               <span class="el-dropdown-link">
                 <i class="el-icon-setting" title="设置"></i>
@@ -242,6 +242,9 @@ export default {
   display: inline-block;
   vertical-align: top;
   // position: absolute;
+  a{
+    color: #474747;
+  }
   &::before {
     content: "";
     padding-top: 2px;

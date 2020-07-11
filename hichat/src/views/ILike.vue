@@ -10,6 +10,7 @@
         </div>
       </div>
       <div class="HL_publish_r">
+
         <notice>
       <template slot="title">
         点赞小知识
@@ -20,13 +21,13 @@
 <p>Q: 我的点赞:<br/>A: 在这里你可以看见你所有点赞过的内容！</p>
       </template>
     </notice>
+    
     <notice>
       <template slot="title">
          嗨聊意见反馈
       </template>
       <template slot="content">
-        <span style="color:#e6a23c;">请留下您在使用过程中遇到的问题或提出宝贵建议
-您也可以添加QQ: 1396520472 进行交流</span>
+        <span style="color:#e6a23c;">请留下您在使用过程中遇到的问题或提出宝贵建议,您也可以添加QQ: 1396520472 进行交流</span>
       </template>
     </notice>
     <notice>

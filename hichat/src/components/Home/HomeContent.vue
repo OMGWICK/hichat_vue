@@ -136,7 +136,7 @@ ul {
 }
 .HL_main {
   padding-top: 16px;
-  min-height: 700px;
+  min-height: 1000px;
   width: 1100px;
   // background-color: rgba(70,149,194,0.3);
   margin: 0 auto;

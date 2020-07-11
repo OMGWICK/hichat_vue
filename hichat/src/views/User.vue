@@ -11,8 +11,8 @@
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img id="user-img" v-if="imageUrl" :src="imageUrl" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <img id="user-img" v-if="imageUrl" :src="imageUrl" class="avatar" title="点击更改头像"/>
+          <i v-else class="el-icon-plus avatar-uploader-icon"  title="点击更改头像"></i>
         </el-upload>
       </div>
       <div id="user-name">
@@ -43,29 +43,9 @@
     </div>
     <div id="null"></div>
     <div id="lastmode">
-      <div id="modeleft">
-        <div id="modeb">
-          <div id="text">二维码</div>
-          <div id="two-dimension">
-            <img src="../assets/css/gen.png" alt id="two-dimensionphoto" />
-            <!-- 这是二维码 -->
-            <div id="two-dimensiontext">扫描二维码，可以用手机访问本页</div>
-          </div>
-        </div>
-        <div id="modec">
-          <div id="credibility">
-            <h4 id="credbilitytext">阳光信用</h4>
-          </div>
-          <div id="crdephotobox">
-            <img id="crdephoto" src="../assets/css/crde.png" />
-            <!-- 这是二维码下面的图片 -->
-          </div>
-        </div>
-      </div>
-      <div id="moderight">
-        <div id="usercenter">
-          <div id="usermessage">
+      <div></div>
             <form id="payment">
+                      <h1>详细信息</h1>
               <fieldset>
                 <ol>
                   <li>
@@ -175,15 +155,12 @@
               </fieldset>
 
               <fieldset>
-                <button id="btnJ" @click="btnj" :disabled="j">保存</button>
-                <button id="btnQ" @click="btnq">编辑</button>
+                <el-button type="info" id="btnQ" @click="btnq" style="margin-right:80px;">编辑</el-button>
+                <el-button type="info" id="btnJ" @click="btnj" :disabled="j">保存</el-button>
               </fieldset>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -226,10 +203,11 @@ export default {
       this.$http
         .post("user/info", formData)
         .then(res => {
-          console.log(res);
+          // console.log(res);
         })
         .catch(err => console.log(err));
-
+        this.name=formData.formName;
+        this.introduce = formData.formIntroduce;
       var inps = document.querySelectorAll("#lastmode input");
       for (var i = 0; i < inps.length; i++) {
         inps[i].disabled = true;
@@ -363,21 +341,22 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
+  width: 100px;
+  height: 100px;
+  line-height: 100px!important;
   text-align: center;
 }
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 100px;
+  height: 100px;
   display: block;
 }
 #mainmode {
   margin-top: 50px;
   background-image: url("../assets/css/bgr.jpg");
-  background-size: cover;
-  background-repeat: o-repeat;
+  // background-size: cover;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   * {
     margin: 0px;
     padding: 0px;
@@ -427,7 +406,7 @@ export default {
   }
   #lastmode {
     width: 920px;
-    height: 900px;
+    height: 1100px;
     top: 0;
     left: 0;
     right: 0;
@@ -450,6 +429,18 @@ export default {
     width: 300px;
     float: left;
   }
+  // #lastmode {
+  // width: 920px;
+  // height: 800px;
+
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  // margin: auto;
+  // background: rgba(0, 0, 0, 0);
+
+  // }
   td {
     height: 50px;
     width: 100px;
@@ -557,37 +548,46 @@ export default {
   ol {
     list-style: none;
   }
-
-  form#payment {
-    background: white;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    padding: 20px;
-
-    width: 600px;
-    height: 800px;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
+form#payment {
+  background: white;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 20px 20px 30px 20px;
+  background: rgba(255, 255, 255, 1);
+  width: 800px;
+  height: 910px;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+ }
+form h1 {
+  font-size: 25px;
+  padding: 0px 0px 10px 40px;
+  display: block;
+  border-bottom: 1px solid #E4E4E4;
+  margin: -10px -15px 0px -10px;
+  color: #888;
+  text-align: left;
+}
+  
   form#payment fieldset {
     text-align: center;
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   form#payment ol li {
     background: rgba(255, 255, 255, 0.3);
     border: #b9b9b3;
-
-    border-style: solid;
-    border-width: 1px;
+    // border-style: solid;
+    // border-width: 1px;
 
     line-height: 30px;
-    padding: 5px 10px;
-    margin-bottom: 2px;
+
+    padding: 14px 8px;
+   border-bottom: 1px solid #E4E4E4;
   }
   form#payment ol ol li {
     background: none;
@@ -597,15 +597,15 @@ export default {
   form#payment label {
     float: left;
     font-size: 12px;
-    width: 110px;
+    width: 120px;
   }
   form#payment select {
-    width: 170px;
-    height: 28px;
+    width: 224px;
+    height: 32px;
     text-align-last: center;
   }
   form#payment input {
-    width: 168px;
+    width: 220px;
     height: 28px;
     text-align-last: center;
   }

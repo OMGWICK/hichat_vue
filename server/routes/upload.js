@@ -3,6 +3,7 @@ var router = express.Router();
 var multer = require('multer');
 
 const storage = multer.diskStorage({
+    //创建路径相对于启动目录
     destination(req,file,cb){
         cb(null,'public/upload/')
     },

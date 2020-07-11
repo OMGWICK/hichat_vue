@@ -289,7 +289,8 @@ export default {
   background-color: #242645;
   color: #fff;
   font-family: "Source Sans Pro";
-  background-size: cover;
+  /* background-size: cover; */
+  background-size: 100% 100%;
   background-image: url("../assets/css/bgr.jpg");
   position: relative;
 }

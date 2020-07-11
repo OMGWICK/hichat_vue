@@ -1,0 +1,11 @@
+﻿CACHE MANIFEST	
+
+CACHE: 
+
+images/ty1.jpg
+images/ty3.jpg
+mycss.css
+NETWORK: 
+*
+FALLBACK 
+online.html offline.html 

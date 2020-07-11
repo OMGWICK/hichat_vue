@@ -42,6 +42,17 @@
       </div>
       <div class="publish_r_more">仅显示前十热门动态</div>
     </div>
+
+    <notice>
+      <template slot="title">
+        温馨提示
+      </template>
+      <template slot="content">
+        1.如何退出登陆：看见右上角的齿轮了嘛？ 试着点击一下！<br/>
+        2.如何快速反馈：点击右上角的邮件标识，请把您宝贵的意见发送至我们的邮箱！您也可以添加QQ: 1396520472进行交流！
+      </template>
+    </notice>
+
     <notice>
       <template slot="title">
         公告通知栏
@@ -216,25 +227,25 @@ export default {
     font-family: serif;
   }
 }
-.pl_notice {
-  background: #ffffff;
+// .pl_notice {
+//   background: #ffffff;
 
-  .pl_f_notice {
-    padding-left: 14px;
-    border-bottom: 1px solid #d9d9d9;
-    text-align: left;
-    line-height: 46px;
-    font-size: 14px;
-    font-weight: 800;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  p {
-    margin: 0px;
-    padding: 14px;
-    font-size: 12px;
-    color: #e6a23c;
-    letter-spacing: 2px;
-    line-height: 16px;
-  }
-}
+//   .pl_f_notice {
+//     padding-left: 14px;
+//     border-bottom: 1px solid #d9d9d9;
+//     text-align: left;
+//     line-height: 46px;
+//     font-size: 14px;
+//     font-weight: 800;
+//     font-family: Arial, Helvetica, sans-serif;
+//   }
+//   p {
+//     margin: 0px;
+//     padding: 14px;
+//     font-size: 12px;
+//     color: #e6a23c;
+//     letter-spacing: 2px;
+//     line-height: 16px;
+//   }
+// }
 </style>

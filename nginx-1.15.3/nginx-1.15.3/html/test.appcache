@@ -1,0 +1,20 @@
+﻿CACHE MANIFEST
+#上一行是必须有的，manifest文件的开始。
+#version 5
+#上一行是版本说明，缓存文件更新时可以修改版本号
+
+CACHE: 
+images/ty1.jpg
+images/ty2.jpg
+mycss.css
+# 用CACHE说明的部分写需要缓存的资源文件列表
+# 可以是相对路径也可以是绝对路径
+
+NETWORK: 
+*
+# 上一部分可选，是要绕过缓存直接读取的文件
+
+FALLBACK 
+online.html offline.html 
+# 上一部分可选，写当访问缓存失败后，备用访问的资源
+# 每行两个文件，第一个是访问源，第二个是替换文件

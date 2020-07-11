@@ -63,7 +63,7 @@ export default {
     searchData:async function(searchWord){
       let res =await this.$http.get("dynamics",{params:{searchWord}}).catch(err=>console.log(err));
       this.cardList=res.data;
-      console.log(res);
+      // console.log(res);
     },
     getData: async function() {
       if (Object.keys(this.$route.params).length == 0) {
